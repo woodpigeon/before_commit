@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'pathname'
 module BeforeCommit
-  class FileManager
+  module FileManager
     def self.copy(source, target)
       dir = File.dirname(target)
       FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
