@@ -9,9 +9,9 @@ module BeforeCommit
     end
     
     def test_copy
-      assert !File.exists?(target), "File should not exist at #{target}"
+      assert !File.exist?(target), "File should not exist at #{target}"
       FileManager.copy source, target
-      assert File.exists?(target), "File should exist at #{target}"
+      assert File.exist?(target), "File should exist at #{target}"
     end
     
     def test_copy_to_new_subfolder
@@ -33,11 +33,17 @@ module BeforeCommit
       make_current_working_directory
       FileManager.copy_dir_to_current dir
       ['foo', 'subfolder/bar'].each do |file|
-        source = File.expand_path file, dir
-        target = File.expand_path file, current
-        assert File.exist?(target), "File #{target} should exist"
-        assert FileUtils.identical?(source, target), "File #{file} should be in both locations"
+        assert_copied_to_current file
       end
+    end
+    
+    def test_copy_dir_to_current_with_dot_file
+      dotfile = '.dotfile'
+      path = File.join(dir, dotfile)
+      File.write path, 'This is a dot file'
+      test_copy_dir_to_current
+      assert_copied_to_current dotfile
+      File.delete path
     end
     
     def source
@@ -67,6 +73,13 @@ module BeforeCommit
     def make_current_working_directory
       FileUtils.mkdir_p current
       FileUtils.cd current
+    end
+    
+    def assert_copied_to_current(file)
+      source = File.expand_path file, dir
+      target = File.expand_path file, current
+      assert File.exist?(target), "File #{target} should exist"
+      assert FileUtils.identical?(source, target), "File #{file} should be in both locations"
     end
   end
 end
