@@ -1,0 +1,6 @@
+commands:
+  - ls
+  - "ruby -v"
+checks:
+  - "ruby -v"
+  - pwd
