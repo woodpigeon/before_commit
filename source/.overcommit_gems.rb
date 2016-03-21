@@ -14,15 +14,13 @@
 
 ## Overcommit also utilises several node packages.
 ## These will need to be installed independently, as follows:
-##   sudo npm install -g jshint coffeelint htmlhint
+##   sudo npm install -g nodejs-legacy jshint coffeelint htmlhint
 
 source "https://rubygems.org"
 ruby "2.2.3"
 
-gem 'rake'
-gem "bundler", ">= 1.10.6"
+gem "brakeman"
 gem "overcommit"
 gem "rubocop"
 gem "scss_lint"
-gem "brakeman"
 gem "i18n-tasks"

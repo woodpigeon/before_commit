@@ -14,6 +14,12 @@
 # https://github.com/brigade/overcommit#configuration
 #
 
+# Whether to check if a hook plugin has changed since Overcommit last ran it.
+# This is a defense mechanism when working with repositories which can contain
+# untrusted code (e.g. when you fetch a pull request from a third party).
+# See https://github.com/brigade/overcommit#security for more information.
+verify_signatures: false
+
 gemfile: '.overcommit_gems.rb'
 
 PreCommit:
@@ -36,17 +42,14 @@ PreCommit:
 
   CoffeeLint:
     enabled: true
-    on_warn: fail
 
   JsHint:
     enabled: true
-    on_warn: fail
     exclude:
       - '**/vendor/assets/javascripts/**/*.js'
 
   ScssLint:
     enabled: true
-    on_warn: fail
 
   YamlSyntax:
     enabled: true
@@ -68,7 +71,6 @@ PreCommit:
     exclude:
       - '**/vendor/assets/javascripts/**/*.js'
       - '**/spec/fixtures/attachments/**/*'
-      - '**/db/migrate/*.rb'
 
   I18nMissing:
     enabled: true
