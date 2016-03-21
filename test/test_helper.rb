@@ -17,4 +17,8 @@ class Minitest::Test
     File.expand_path('data', File.dirname(__FILE__))
   end
   
+  def config_file_path
+    data_path('config.yml')
+  end
+  
 end

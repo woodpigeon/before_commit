@@ -19,10 +19,6 @@ module BeforeCommit
       @config_from_file ||= YAML.load_file config_file_path
     end
     
-    def config_file_path
-      data_path('config.yml')
-    end
-    
     def config
       @config ||= Config.new
     end

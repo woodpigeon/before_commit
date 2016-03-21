@@ -2,5 +2,15 @@ commands:
   - ls
   - "ruby -v"
 checks:
-  - "ruby -v"
-  - pwd
+  good:
+    command: echo foo
+    expected: foo
+    failure_message: Expecting 'foo'
+  bad:
+    command: echo foo
+    expected: bar
+    failure_message: Got 'foo' instead of 'bar'
+  error:
+    command: xxxxxxx
+    expected: an error
+    failure_message: Not used - error message should be returned
