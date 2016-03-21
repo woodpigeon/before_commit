@@ -5,12 +5,14 @@ module BeforeCommit
     def run(cmd)
       reset
       @input = cmd
-      stdout, stderr, status = Open3.capture3(cmd)
-      @result = case status.exitstatus
-      when 0
-        @success = stdout
-      when 1, 127
-        @error = stderr
+      Bundler.with_clean_env do # Needed to run bundler commands
+        stdout, stderr, status = Open3.capture3(cmd)
+        @result = case status.exitstatus
+        when 0
+          @success = stdout
+        when 1, 127
+          @error = stderr
+        end
       end
     rescue Errno::ENOENT => e
       @result = @error = e.message

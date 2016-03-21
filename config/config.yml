@@ -1,13 +1,7 @@
-checks:
-  rubocop:
-    command: rubocop -v
-    expected: '^(\d+\.?){3}' # Rubocop version number. e.g. 0.38.0 
-    failure_message: Rubocop needs to be installed
-  overcommit: 
-    command: overcommit -v
-    expected: 'overcommit\s+(\d+\.?){3}' # Over commit version number. e.g overcommit 0.32.0
-    failure_message: Overcommit needs to be installed
 
 commands:
-  - "ruby -v"
-  
+  - 'BUNDLE_GEMFILE=.overcommit_gems.rb bundle install'
+  - 'BUNDLE_GEMFILE=.overcommit_gems.rb bundle exec overcommit --install'
+  - 'BUNDLE_GEMFILE=.overcommit_gems.rb bundle exec overcommit --sign'
+  - 'BUNDLE_GEMFILE=.overcommit_gems.rb bundle exec overcommit --sign pre-commit'
+

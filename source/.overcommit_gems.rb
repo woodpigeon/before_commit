@@ -19,6 +19,7 @@
 source "https://rubygems.org"
 ruby "2.2.3"
 
+gem 'rake'
 gem "bundler", ">= 1.10.6"
 gem "overcommit"
 gem "rubocop"

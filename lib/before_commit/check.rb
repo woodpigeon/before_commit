@@ -7,6 +7,7 @@ module BeforeCommit
     end
     
     def self.all
+      return [] unless config.checks.respond_to?(:values)
       config.checks.values.collect{|v| new v}
     end
     
