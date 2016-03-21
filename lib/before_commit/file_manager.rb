@@ -12,6 +12,7 @@ module BeforeCommit
       current = FileUtils.pwd
       dir_path = Pathname dir
       all_files_in_dir = File.join dir_path, '**', '*'
+      count = 0
       
       Dir.glob(all_files_in_dir, include_dotfiles).each do |file|
         next if Dir.exist?(file)
@@ -19,7 +20,9 @@ module BeforeCommit
         relative_path = path.relative_path_from(dir_path)
         target = File.expand_path relative_path, current
         copy file, target
+        count += 1
       end
+      "#{count} files copied to current location"
     end
     
     def self.include_dotfiles
