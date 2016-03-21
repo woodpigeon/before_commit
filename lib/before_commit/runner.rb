@@ -9,8 +9,8 @@ module BeforeCommit
         end
         output 'Process completed'
       else
-        output 'Errors found:'
-        pre_run_failures.each{|f| output "\t#{f}"}
+        output "#{pre_run_failures.length} errors found -"
+        pre_run_failures.each_with_index{|f,i| output "  Error #{i+1}:\n\t#{f}\n"}
         output 'Unable to run process'
         false
       end  
