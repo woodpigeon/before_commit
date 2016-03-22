@@ -4,7 +4,9 @@ require 'before_commit'
 require 'minitest/autorun'
 
 class Minitest::Test
-  
+  require 'active_support/testing/assertions'
+  include ActiveSupport::Testing::Assertions
+
   def data_file(path)
     File.read data_path(path)
   end

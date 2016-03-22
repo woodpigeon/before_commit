@@ -1,7 +1,5 @@
-
 commands:
   - 'BUNDLE_GEMFILE=.overcommit_gems.rb bundle install'
   - 'BUNDLE_GEMFILE=.overcommit_gems.rb bundle exec overcommit --install'
   - 'BUNDLE_GEMFILE=.overcommit_gems.rb bundle exec overcommit --sign'
   - 'BUNDLE_GEMFILE=.overcommit_gems.rb bundle exec overcommit --sign pre-commit'
-
