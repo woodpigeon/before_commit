@@ -4,7 +4,7 @@ module BeforeCommit
       pre_run_failures = Check.failures
       if pre_run_failures.empty?
         output FileManager.copy_dir_to_current source_dir
-        puts 'Be patient, on first run the next bit can take a few minutes'
+        output 'Be patient, on first run the next bit can take a few minutes'
         config.commands.each do |cmd|
           output command.run cmd
         end
