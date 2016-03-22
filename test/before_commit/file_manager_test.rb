@@ -46,6 +46,14 @@ module BeforeCommit
       File.delete path
     end
     
+    def test_copy_dir_to_current_removes_existing
+      file = File.join(current, 'subfolder', 'existing_file.txt')
+      FileManager.copy source, file
+      assert File.exist?(file), "#{file} should exist"
+      test_copy_dir_to_current
+      refute File.exist?(file), "#{file} should not exist"
+    end
+    
     def source
       @source ||= data_path('source.yml')
     end
@@ -69,7 +77,7 @@ module BeforeCommit
     def current
       @current = data_path('temp')
     end
-    
+        
     def make_current_working_directory
       FileUtils.mkdir_p current
       FileUtils.cd current

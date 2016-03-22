@@ -9,24 +9,36 @@ module BeforeCommit
     end
     
     def self.copy_dir_to_current(dir)
-      current = FileUtils.pwd
       dir_path = Pathname dir
       all_files_in_dir = File.join dir_path, '**', '*'
       count = 0
       
       Dir.glob(all_files_in_dir, include_dotfiles).each do |file|
-        next if Dir.exist?(file)
         path = Pathname file
         relative_path = path.relative_path_from(dir_path)
         target = File.expand_path relative_path, current
-        copy file, target
-        count += 1
+        if Dir.exist?(file)
+          unless dir == file || target == current || ends_with_a_dot?(file)
+            FileUtils.rm_rf target
+          end
+        else
+          copy file, target
+          count += 1
+        end
       end
       "#{count} files copied to current location"
     end
     
     def self.include_dotfiles
       File::FNM_DOTMATCH
+    end
+    
+    def self.current
+      @current ||= FileUtils.pwd
+    end
+    
+    def self.ends_with_a_dot?(file)
+      /\.$/ =~ file
     end
   end
 end
