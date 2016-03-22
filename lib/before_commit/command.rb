@@ -7,10 +7,9 @@ module BeforeCommit
       @input = cmd
       Bundler.with_clean_env do # Needed to run bundler commands
         stdout, stderr, status = Open3.capture3(cmd)
-        @result = case status.exitstatus
-        when 0
+        @result = if status.exitstatus == 0
           @success = stdout
-        when 1, 127
+        else
           @error = stderr
         end
       end

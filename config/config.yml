@@ -1,3 +1,14 @@
+checks:
+  git:
+    command: git --version
+    expected: 'git\s+version\s+(\d+\.?){3}'
+    failure_message: Git must be installed
+    
+  git_repository:
+    command: git status
+    expected: On branch
+    failure_message: Must be run within a git repository (run `git init`)
+
 commands:
   - 'BUNDLE_GEMFILE=.overcommit_gems.rb bundle install'
   - 'BUNDLE_GEMFILE=.overcommit_gems.rb bundle exec overcommit --install'
