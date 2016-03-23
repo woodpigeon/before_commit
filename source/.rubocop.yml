@@ -1,7 +1,9 @@
 AllCops:
+  TargetRubyVersion: 2.2
   Exclude:
     # Rubocop is accidentally linting HTML ERB files in Atom Editor https://github.com/AtomLinter/linter-rubocop/issues/48
     - '**/*.html.erb'
+    - '**/bin/*'
 
 inherit_from:
   - rubocop/gds-ruby-styleguide.yml
